@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Form {
+  id     Int    @id @default(autoincrement())
+  userId String
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  published   Boolean  @default(false)
+  name        String
+  description String   @default("")
+  visits      Int      @default(0)
+  submissions Int      @default(0)
+
+  shareURL        String            @default(uuid())
+  FormSubmissions FormSubmissions[]
+}
+
+model FormSubmissions {
+  id        Int      @id @default(autoincrement())
+  formId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Form      Form     @relation(fields: [formId], references: [id])
+  content   String
+}
