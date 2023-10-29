@@ -87,7 +87,7 @@ function FormBuilder({ form }: Props) {
                 onClick={() => {
                   navigator.clipboard.writeText(shareURL);
                   toast({
-                    title: "Copied",
+                    title: "Copied!",
                     description: "The link has been copied to your clipboard.",
                   });
                 }}

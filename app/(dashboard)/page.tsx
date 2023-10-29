@@ -107,7 +107,7 @@ interface StatsCardProps {
   loading: boolean;
 }
 
-function StatsCard({
+export function StatsCard({
   title,
   icon,
   value,
