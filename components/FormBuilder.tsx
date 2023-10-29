@@ -1,6 +1,8 @@
 "use client";
 
 import { Form } from "@prisma/client";
+import Link from "next/link";
+import Confetti from "react-confetti";
 import {
   DndContext,
   MouseSensor,
@@ -15,7 +17,10 @@ import Designer from "./Designer";
 import DragOverlayWrapper from "./DragOverlayWrapper";
 import { useEffect, useState } from "react";
 import useDesigner from "./hooks/useDesigner";
-import { Loader2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { toast } from "./ui/use-toast";
 
 interface Props {
   form: Form;
@@ -40,6 +45,8 @@ function FormBuilder({ form }: Props) {
 
   const sensors = useSensors(mouseSensor, touchSensor);
 
+  const shareURL = `${window.location.origin}/submit/${form.shareURL}`;
+
   useEffect(() => {
     if (isReady) return;
 
@@ -54,6 +61,57 @@ function FormBuilder({ form }: Props) {
         <Loader2 className="h-12 w-12 animate-spin" />
       </div>
     );
+
+  if (form.published) {
+    return (
+      <>
+        <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          numberOfPieces={1000}
+          recycle={false}
+        />
+        <div className="flex h-full w-full flex-col items-center justify-center">
+          <div className="max-w-md">
+            <h1 className="mb-10 border-b pb-2 text-center text-4xl font-bold text-primary">
+              🎊🎊 Form Published
+            </h1>
+            <h2 className="text-2xl">Share this form</h2>
+            <h3 className="border-b pb-10 text-xl text-muted-foreground">
+              Anyone with the link can view and submit the form
+            </h3>
+            <div className="my-4 flex w-full flex-col items-center gap-2 border-b pb-4">
+              <Input className="w-full" readOnly value={shareURL} />
+              <Button
+                className="mt-2 w-full"
+                onClick={() => {
+                  navigator.clipboard.writeText(shareURL);
+                  toast({
+                    title: "Copied",
+                    description: "The link has been copied to your clipboard.",
+                  });
+                }}
+              >
+                Copy link
+              </Button>
+            </div>
+            <div className="flex justify-between">
+              <Button variant="link" asChild>
+                <Link href={"/"} className="gap-2">
+                  <ArrowLeft /> Go back home
+                </Link>
+              </Button>
+              <Button variant="link" asChild>
+                <Link href={`/forms/${form.id}`} className="gap-2">
+                  Form details <ArrowRight />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <DndContext sensors={sensors}>
