@@ -14,9 +14,10 @@ function FormElementsSidebar() {
         </p>
         <SidebarBtnElement formElement={FormElements.TitleField} />
         <SidebarBtnElement formElement={FormElements.SubTitleField} />
+        <SidebarBtnElement formElement={FormElements.ParagraphField} />
         {/* 
         
-        <SidebarBtnElement formElement={FormElements.ParagraphField} />
+        
         <SidebarBtnElement formElement={FormElements.SeparatorField} />
         <SidebarBtnElement formElement={FormElements.SpacerField} /> */}
 
