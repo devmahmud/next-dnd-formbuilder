@@ -48,6 +48,7 @@ function FormSubmitComponent({ formContent, formURL }: Props) {
       toast({
         title: "Error",
         description: "please check the form for errors",
+        variant: "destructive",
       });
       return;
     }
