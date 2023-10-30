@@ -27,7 +27,7 @@ interface Props {
 }
 
 function FormBuilder({ form }: Props) {
-  const { setElements } = useDesigner();
+  const { setElements, setSelectedElement } = useDesigner();
   const [isReady, setIsReady] = useState(false);
 
   const mouseSensor = useSensor(MouseSensor, {
@@ -52,8 +52,9 @@ function FormBuilder({ form }: Props) {
 
     const elements = JSON.parse(form.content);
     setElements(elements);
+    setSelectedElement(null);
     setIsReady(true);
-  }, [form, setElements, isReady]);
+  }, [form, setElements, isReady, setSelectedElement]);
 
   if (!isReady)
     return (
