@@ -28,7 +28,7 @@ Before running the project, ensure you have the following installed:
 
 3. For authentication, This project uses [Clerk](https://clerk.com/). Create a free clerk account and from `Developers/API Keys` you will get Publishable key and secret key for the Next.js project
 
-3. Set up environment variables:
+4. Set up environment variables:
 
    Create a `.env` file in the root directory and provide the following variables:
 
@@ -48,7 +48,7 @@ Before running the project, ensure you have the following installed:
 
    Ensure to replace the placeholders with your actual values.
 
-4. Initialize Prisma:
+5. Initialize Prisma:
 
    ```bash
    npx prisma generate
@@ -56,13 +56,14 @@ Before running the project, ensure you have the following installed:
    yarn prisma generate
    ```
 
-5. Run the development server:
+6. Run the development server:
 
    ```bash
    npm run dev
    # or
    yarn dev
    ```
+
 
 ## Scripts
 
