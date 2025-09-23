@@ -200,7 +200,6 @@ function PropertiesComponent({
               <FormControl>
                 <Input
                   {...field}
-                  type="number"
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       e.currentTarget.blur();
